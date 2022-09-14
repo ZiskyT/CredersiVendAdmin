@@ -1,0 +1,228 @@
+{
+	"info": {
+		"_postman_id": "8c2e10a6-ad67-4bf6-bf9f-0859060ffe9b",
+		"name": "(TC_011) Create a customer, Get Customer, Delete Customer",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "23346399"
+	},
+	"item": [
+		{
+			"name": "Authnticate",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Successful POST request\", function () {\r",
+							"    pm.expect(pm.response.code).to.be.oneOf([200, 202]);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\": \"admin\",\r\n    \"password\": \"HelloWorld\"\r\n\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/authenticate",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"authenticate"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create a New Customer within postman",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response time is less than 600ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(600);\r",
+							"});\r",
+							"pm.test(\"Successful POST request\", function () {\r",
+							"    pm.expect(pm.response.code).to.be.oneOf([200, 202]);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "\r\n    {\r\n        \"name\": \"Zakpost\",\r\n        \"uuid\": \"44c9105f-e9ec-4e9e-a6df-e77bbaa9e1af\"\r\n    }\r\n\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/v1/domains/7bd996ad-79f9-4197-ac33-8ef5181899af/customers",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"domains",
+						"7bd996ad-79f9-4197-ac33-8ef5181899af",
+						"customers"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get the customer UUID from the Database",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response time is less than 600ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(600);\r",
+							"});\r",
+							"pm.test(\"Get returns the correct UUID\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"44c9105f-e9ec-4e9e-a6df-e77bbaa9e1af\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/v1/domains/7bd996ad-79f9-4197-ac33-8ef5181899af/customers/44c9105f-e9ec-4e9e-a6df-e77bbaa9e1af",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"domains",
+						"7bd996ad-79f9-4197-ac33-8ef5181899af",
+						"customers",
+						"44c9105f-e9ec-4e9e-a6df-e77bbaa9e1af"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete the customer ID from the database",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response time is less than 600ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(600);\r",
+							"});\r",
+							"pm.test(\"Delete doesnt return UUID\", function () {\r",
+							"    pm.expect(pm.response.text()).not.to.eql(\"44c9105f-e9ec-4e9e-a6df-e77bbaa9e1af\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/v1/domains/7bd996ad-79f9-4197-ac33-8ef5181899af/customers/44c9105f-e9ec-4e9e-a6df-e77bbaa9e1af",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"domains",
+						"7bd996ad-79f9-4197-ac33-8ef5181899af",
+						"customers",
+						"44c9105f-e9ec-4e9e-a6df-e77bbaa9e1af"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Check if the customer is deleted",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Delete Customer doesnt show in customer list\", function () {\r",
+							"    pm.expect(pm.response.text()).not.to.eql(\"44c9105f-e9ec-4e9e-a6df-e77bbaa9e1af\");\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/v1/domains/7bd996ad-79f9-4197-ac33-8ef5181899af/customers",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"domains",
+						"7bd996ad-79f9-4197-ac33-8ef5181899af",
+						"customers"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
